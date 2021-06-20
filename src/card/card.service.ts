@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Card } from './card.entity';
+import { Comment } from './comment.entity';
 import { CreateCardDto } from './dto/create-card.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
+import { EditCommentDto } from './dto/edit-comment.dto';
 import { EditDescriptionDto } from './dto/edit-description.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
 import { SetDueCompleteDto } from './dto/set-due.dto';
@@ -12,6 +15,8 @@ export class CardService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
   ) {}
 
   public async create(createCardDto: CreateCardDto) {
@@ -59,5 +64,29 @@ export class CardService {
 
   public async remove(id: string) {
     await this.cardRepository.delete(id);
+  }
+
+  public async createComment(id: string, createCommentDto: CreateCommentDto) {
+    const comment = await this.commentRepository.save({
+      cardId: id,
+      content: createCommentDto.content,
+    });
+
+    return comment;
+  }
+
+  public async editComment(
+    id: string,
+    editCommentDto: EditCommentDto,
+  ) {
+    const comment = await this.commentRepository.findOne(id);
+    comment.content = editCommentDto.content;
+    await this.commentRepository.save(comment);
+
+    return comment;
+  }
+
+  public async removeComment(id: string) {
+    await this.commentRepository.delete(id);
   }
 }

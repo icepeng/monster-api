@@ -4,9 +4,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { List } from '../list/list.entity';
+import { Comment } from './comment.entity';
 
 @Entity()
 export class Card {
@@ -22,6 +24,12 @@ export class Card {
   )
   @JoinColumn({ name: 'listId' })
   list: List;
+
+  @OneToMany(
+    () => Comment,
+    comment => comment.card,
+  )
+  comments: Comment[];
 
   @Column('int')
   index: number;
