@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Label } from '../card/label.entity';
 import { List } from '../list/list.entity';
 
 @Entity()
@@ -20,4 +21,10 @@ export class Board {
     list => list.board,
   )
   lists: List[];
+
+  @OneToMany(
+    () => Label,
+    label => label.board,
+  )
+  labels: Label[];
 }

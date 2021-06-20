@@ -1,7 +1,7 @@
 import { IsInt, IsString } from 'class-validator';
 
 export class CreateLabelDto {
-  @IsInt() listId: number;
+  @IsInt() boardId: number;
 
   @IsString() title: string;
 
