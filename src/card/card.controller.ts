@@ -9,7 +9,7 @@ import { SetDueCompleteDto } from './dto/set-due.dto';
 export class CardController {
   constructor(private readonly cardService: CardService) {}
 
-  @Post('/:id')
+  @Post()
   public async create(@Body() createCardDto: CreateCardDto) {
     const card = await this.cardService.create(createCardDto);
 
