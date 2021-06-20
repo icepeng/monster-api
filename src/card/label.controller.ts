@@ -1,4 +1,11 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { CreateLabelDto } from './dto/create-label';
 import { LabelService } from './label.service';
 
@@ -14,7 +21,7 @@ export class LabelController {
   }
 
   @Delete('/:id')
-  public async remove(@Param('id') id: string) {
+  public async remove(@Param('id', ParseIntPipe) id: number) {
     await this.labelService.remove(id);
 
     return { id };

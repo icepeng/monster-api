@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { EditCommentDto } from './dto/edit-comment.dto';
@@ -18,7 +18,7 @@ export class CommentController {
 
   @Put(':id')
   public async editComment(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() editCommentDto: EditCommentDto,
   ) {
     const comment = await this.commentService.editComment(id, editCommentDto);
@@ -27,7 +27,7 @@ export class CommentController {
   }
 
   @Delete()
-  public async removeComment(@Param('id') id: string) {
+  public async removeComment(@Param('id', ParseIntPipe) id: number) {
     await this.commentService.removeComment(id);
 
     return { id };

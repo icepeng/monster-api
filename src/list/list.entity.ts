@@ -12,11 +12,11 @@ import { Card } from '../card/card.entity';
 
 @Entity()
 export class List {
-  @PrimaryGeneratedColumn('uuid') id: string;
+  @PrimaryGeneratedColumn('increment') id: number;
 
   @CreateDateColumn() createTime: string;
 
-  @Column() boardId: string;
+  @Column() boardId: number;
 
   @ManyToOne(
     () => Board,

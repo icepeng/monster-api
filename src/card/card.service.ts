@@ -30,7 +30,7 @@ export class CardService {
     return card;
   }
 
-  public async editTitle(id: string, editTitleDto: EditTitleDto) {
+  public async editTitle(id: number, editTitleDto: EditTitleDto) {
     const card = await this.cardRepository.findOne(id);
     card.title = editTitleDto.title;
     await this.cardRepository.save(card);
@@ -39,7 +39,7 @@ export class CardService {
   }
 
   public async editDescription(
-    id: string,
+    id: number,
     editDescriptionDto: EditDescriptionDto,
   ) {
     const card = await this.cardRepository.findOne(id);
@@ -50,7 +50,7 @@ export class CardService {
   }
 
   public async setDueComplete(
-    id: string,
+    id: number,
     setDueCompleteDto: SetDueCompleteDto,
   ) {
     const card = await this.cardRepository.findOne(id);
@@ -60,7 +60,7 @@ export class CardService {
     return card;
   }
 
-  public async remove(id: string) {
+  public async remove(id: number) {
     await this.cardRepository.delete(id);
   }
 
@@ -96,7 +96,7 @@ export class CardService {
     }
   }
 
-  public async addLabel(id: string, addLabelDto: AddLabelDto) {
+  public async addLabel(id: number, addLabelDto: AddLabelDto) {
     await this.cardRepository
       .createQueryBuilder()
       .relation('labels')
@@ -106,7 +106,7 @@ export class CardService {
     return { id, labelId: addLabelDto.labelId };
   }
 
-  public async dropLabel(id: string, labelId: string) {
+  public async dropLabel(id: number, labelId: number) {
     await this.cardRepository
       .createQueryBuilder()
       .relation('labels')

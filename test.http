@@ -1,3 +1,4 @@
+### create board
 POST http://localhost:3000/boards
 Content-Type: application/json
 
@@ -5,15 +6,48 @@ Content-Type: application/json
     "title": "Trello Resources"
 }
 
-###
+### get all boards
 GET http://localhost:3000/boards
 
-###
+### get board
+GET http://localhost:3000/boards/1
 
-GET http://localhost:3000/boards/b8eaf477-6a98-4805-9be7-606f3c088b9b
+### create list
+POST http://localhost:3000/lists
+Content-Type: application/json
 
-###
+{
+    "boardId": "b8eaf477-6a98-4805-9be7-606f3c088b9b",
+    "title": "temp",
+    "index": 5
+}
 
+### move list
+POST http://localhost:3000/lists/move
+Content-Type: application/json
+
+{
+    "previousIndex": 1,
+    "currentIndex": 2
+}
+
+### remove list
+DELETE http://localhost:3000/lists/a80c5fe4-5c00-431f-ac28-a560d8c4362c
+
+### remove card
+DELETE http://localhost:3000/cards/6f2a6231-2a1f-4081-a38e-354baf63a1b2/comments/da0e1aaa-da19-4885-8ba5-cd9f77339559
+
+### add card
+POST http://localhost:3000/cards
+Content-Type: application/json
+
+{
+    "listId": "12d214e1-3ca4-4bcc-ad74-716cbac6be63",
+    "title": "scrum for trello",
+    "index": 0
+}
+
+### move card
 POST http://localhost:3000/cards/move
 Content-Type: application/json
 
@@ -23,56 +57,19 @@ Content-Type: application/json
     "previousIndex": 0,
     "currentIndex": 0
 }
-### 
 
-POST http://localhost:3000/lists
-Content-Type: application/json
-
-{
-    "boardId": "b8eaf477-6a98-4805-9be7-606f3c088b9b",
-    "title": "temp",
-    "index": 5
-}
-### 
-
+### create comment
 POST http://localhost:3000/cards/6f2a6231-2a1f-4081-a38e-354baf63a1b2/comments
 Content-Type: application/json
 
 {
     "content": "Hello, World2!"
 }
-### 
 
+### edit comment
 PUT http://localhost:3000/cards/6f2a6231-2a1f-4081-a38e-354baf63a1b2/comments/da0e1aaa-da19-4885-8ba5-cd9f77339559
 Content-Type: application/json
 
 {
     "content": "Goodbye, World!"
 }
-### 
-
-DELETE http://localhost:3000/cards/6f2a6231-2a1f-4081-a38e-354baf63a1b2/comments/da0e1aaa-da19-4885-8ba5-cd9f77339559
-### 
-
-POST http://localhost:3000/lists/move
-Content-Type: application/json
-
-{
-    "previousIndex": 1,
-    "currentIndex": 2
-}
-### 
-
-DELETE  http://localhost:3000/lists/a80c5fe4-5c00-431f-ac28-a560d8c4362c
-
-###
-POST  http://localhost:3000/cards/
-Content-Type: application/json
-
-{
-    "listId": "12d214e1-3ca4-4bcc-ad74-716cbac6be63",
-    "title": "scrum for trello",
-    "index": 0
-}
-
-###

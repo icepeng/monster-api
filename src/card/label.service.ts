@@ -21,7 +21,7 @@ export class LabelService {
     return card;
   }
 
-  public async remove(id: string) {
+  public async remove(id: number) {
     await this.labelRepository.delete(id);
   }
 }

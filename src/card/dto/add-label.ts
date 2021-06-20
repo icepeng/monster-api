@@ -1,5 +1,5 @@
-import { IsString } from 'class-validator';
+import { IsInt } from 'class-validator';
 
 export class AddLabelDto {
-  @IsString() labelId: string;
+  @IsInt() labelId: number;
 }

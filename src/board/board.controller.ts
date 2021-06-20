@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -20,12 +20,12 @@ export class BoardController {
   }
 
   @Get('/:id')
-  public async getOne(@Param('id') id: string) {
+  public async getOne(@Param('id', ParseIntPipe) id: number) {
     return this.boardService.findOne(id);
   }
 
   @Delete('/:id')
-  public async remove(@Param('id') id: string) {
+  public async remove(@Param('id', ParseIntPipe) id: number) {
     const cardIds = await this.boardService.remove(id);
 
     return { id, cardIds };
