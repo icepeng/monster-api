@@ -30,7 +30,7 @@ export class Card {
 
   @Column('text') description: string;
 
-  @Column('timestamp') due: string | null;
+  @Column('timestamp', { nullable: true }) due: string | null;
 
   @Column() dueComplete: boolean;
 }
