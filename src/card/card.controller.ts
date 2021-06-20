@@ -6,6 +6,7 @@ import { EditDescriptionDto } from './dto/edit-description.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
 import { MoveCardDto } from './dto/move-card.dto';
 import { SetDueCompleteDto } from './dto/set-due-complete.dto';
+import { SetDueDto } from './dto/set-due.dto';
 
 @Controller('cards')
 export class CardController {
@@ -43,6 +44,14 @@ export class CardController {
     const card = await this.cardService.editDescription(id, editDescriptionDto);
 
     return { card };
+  }
+
+  @Post('/:id/due')
+  public async setDue(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() setDueDto: SetDueDto,
+  ) {
+    const card = await this.cardService.setDue(id, setDueDto);
   }
 
   @Put('/:id/dueComplete')

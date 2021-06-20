@@ -9,6 +9,7 @@ import { EditDescriptionDto } from './dto/edit-description.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
 import { MoveCardDto } from './dto/move-card.dto';
 import { SetDueCompleteDto } from './dto/set-due-complete.dto';
+import { SetDueDto } from './dto/set-due.dto';
 
 @Injectable()
 export class CardService {
@@ -44,6 +45,17 @@ export class CardService {
   ) {
     const card = await this.cardRepository.findOne(id);
     card.description = editDescriptionDto.description;
+    await this.cardRepository.save(card);
+
+    return card;
+  }
+
+  public async setDue(
+    id: number,
+    setDueDto: SetDueDto,
+  ) {
+    const card = await this.cardRepository.findOne(id);
+    card.due = setDueDto.due;
     await this.cardRepository.save(card);
 
     return card;

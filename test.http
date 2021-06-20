@@ -12,6 +12,14 @@ GET http://localhost:3000/boards
 ### get board
 GET http://localhost:3000/boards/1
 
+### set due
+POST http://localhost:3000/cards/35/due
+Content-Type: application/json
+
+{
+    "due": "2021-06-03T08:00:00.000Z"
+}
+
 ### create list
 POST http://localhost:3000/lists
 Content-Type: application/json
