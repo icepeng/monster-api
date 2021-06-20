@@ -14,6 +14,17 @@ GET http://localhost:3000/boards/b8eaf477-6a98-4805-9be7-606f3c088b9b
 
 ###
 
+POST http://localhost:3000/cards/move
+Content-Type: application/json
+
+{
+    "previousListId": "9fe3d78f-2585-4feb-8281-eaefbc3ad351",
+    "currentListId": "12d214e1-3ca4-4bcc-ad74-716cbac6be63",
+    "previousIndex": 0,
+    "currentIndex": 0
+}
+### 
+
 POST http://localhost:3000/lists
 Content-Type: application/json
 
@@ -22,6 +33,25 @@ Content-Type: application/json
     "title": "temp",
     "index": 5
 }
+### 
+
+POST http://localhost:3000/cards/6f2a6231-2a1f-4081-a38e-354baf63a1b2/comments
+Content-Type: application/json
+
+{
+    "content": "Hello, World2!"
+}
+### 
+
+PUT http://localhost:3000/cards/6f2a6231-2a1f-4081-a38e-354baf63a1b2/comments/da0e1aaa-da19-4885-8ba5-cd9f77339559
+Content-Type: application/json
+
+{
+    "content": "Goodbye, World!"
+}
+### 
+
+DELETE http://localhost:3000/cards/6f2a6231-2a1f-4081-a38e-354baf63a1b2/comments/da0e1aaa-da19-4885-8ba5-cd9f77339559
 ### 
 
 POST http://localhost:3000/lists/move
@@ -40,8 +70,8 @@ POST  http://localhost:3000/cards/
 Content-Type: application/json
 
 {
-    "listId": "a80c5fe4-5c00-431f-ac28-a560d8c4362c",
-    "title": "ssb",
+    "listId": "12d214e1-3ca4-4bcc-ad74-716cbac6be63",
+    "title": "scrum for trello",
     "index": 0
 }
 
