@@ -13,7 +13,7 @@ export class LabelService {
 
   public async create(createLabelDto: CreateLabelDto) {
     const card = await this.labelRepository.save({
-      listId: createLabelDto.listId,
+      boardId: createLabelDto.boardId,
       title: createLabelDto.title,
       color: createLabelDto.color,
     });

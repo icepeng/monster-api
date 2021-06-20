@@ -1,4 +1,3 @@
-import { List } from 'src/list/list.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Board } from '../board/board.entity';
 
 @Entity()
 export class Label {
@@ -14,14 +14,14 @@ export class Label {
 
   @CreateDateColumn() createTime: string;
 
-  @Column() listId: number;
+  @Column() boardId: number;
 
   @ManyToOne(
-    () => List,
-    list => list.cards,
+    () => Board,
+    board => board.labels,
   )
-  @JoinColumn({ name: 'listId' })
-  list: List;
+  @JoinColumn({ name: 'boardId' })
+  board: Board;
 
   @Column() title: string;
 
