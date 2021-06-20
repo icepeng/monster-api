@@ -28,6 +28,7 @@ export class BoardService {
       .createQueryBuilder('board')
       .leftJoinAndSelect('board.lists', 'list')
       .leftJoinAndSelect('list.cards', 'card')
+      .leftJoinAndSelect('card.comments', 'comment')
       .where('board.id = :id', { id })
       .getOne();
   }
