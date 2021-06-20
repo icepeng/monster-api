@@ -3,12 +3,15 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { List } from '../list/list.entity';
 import { Comment } from './comment.entity';
+import { Label } from './label.entity';
 
 @Entity()
 export class Card {
@@ -30,6 +33,10 @@ export class Card {
     comment => comment.card,
   )
   comments: Comment[];
+
+  @ManyToMany(() => Label)
+  @JoinTable()
+  labels: Label[];
 
   @Column('int')
   index: number;

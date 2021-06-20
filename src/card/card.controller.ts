@@ -1,12 +1,11 @@
 import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
 import { CardService } from './card.service';
+import { AddLabelDto } from './dto/add-label';
 import { CreateCardDto } from './dto/create-card.dto';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { EditCommentDto } from './dto/edit-comment.dto';
 import { EditDescriptionDto } from './dto/edit-description.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
 import { MoveCardDto } from './dto/move-card.dto';
-import { SetDueCompleteDto } from './dto/set-due.dto';
+import { SetDueCompleteDto } from './dto/set-due-complete.dto';
 
 @Controller('cards')
 export class CardController {
@@ -63,33 +62,23 @@ export class CardController {
     return { id };
   }
 
-  @Post('/:id/comments')
-  public async createComment(
+  @Post('/:id/labels')
+  public async addLabel(
     @Param('id') id: string,
-    @Body() createCommentDto: CreateCommentDto,
+    @Body() addLabelDto: AddLabelDto,
   ) {
-    const card = await this.cardService.createComment(id, createCommentDto);
+    const result = await this.cardService.addLabel(id, addLabelDto);
 
-    return { card };
+    return result;
   }
 
-  @Put('/:id/comments/:commentId')
-  public async editComment(
-    @Param('commentId') commentId: string,
-    @Body() editCommentDto: EditCommentDto,
+  @Delete('/:id/labels/:labelId')
+  public async dropLabel(
+    @Param('id') id: string,
+    @Param('labelId') labelId: string,
   ) {
-    const comment = await this.cardService.editComment(
-      commentId,
-      editCommentDto,
-    );
+    const result = await this.cardService.dropLabel(id, labelId);
 
-    return { comment };
-  }
-
-  @Delete('/:id/comments/:commentId')
-  public async removeComment(@Param('commentId') commentId: string) {
-    await this.cardService.removeComment(commentId);
-
-    return { commentId };
+    return result;
   }
 }

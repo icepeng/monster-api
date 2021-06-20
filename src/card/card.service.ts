@@ -3,22 +3,18 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Card } from './card.entity';
-import { Comment } from './comment.entity';
+import { AddLabelDto } from './dto/add-label';
 import { CreateCardDto } from './dto/create-card.dto';
-import { CreateCommentDto } from './dto/create-comment.dto';
-import { EditCommentDto } from './dto/edit-comment.dto';
 import { EditDescriptionDto } from './dto/edit-description.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
 import { MoveCardDto } from './dto/move-card.dto';
-import { SetDueCompleteDto } from './dto/set-due.dto';
+import { SetDueCompleteDto } from './dto/set-due-complete.dto';
 
 @Injectable()
 export class CardService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,
-    @InjectRepository(Comment)
-    private readonly commentRepository: Repository<Comment>,
   ) {}
 
   public async create(createCardDto: CreateCardDto) {
@@ -68,27 +64,6 @@ export class CardService {
     await this.cardRepository.delete(id);
   }
 
-  public async createComment(id: string, createCommentDto: CreateCommentDto) {
-    const comment = await this.commentRepository.save({
-      cardId: id,
-      content: createCommentDto.content,
-    });
-
-    return comment;
-  }
-
-  public async editComment(id: string, editCommentDto: EditCommentDto) {
-    const comment = await this.commentRepository.findOne(id);
-    comment.content = editCommentDto.content;
-    await this.commentRepository.save(comment);
-
-    return comment;
-  }
-
-  public async removeComment(id: string) {
-    await this.commentRepository.delete(id);
-  }
-
   public async moveCard(moveCardDto: MoveCardDto) {
     const {
       currentIndex,
@@ -119,5 +94,25 @@ export class CardService {
       );
       return this.cardRepository.save(cards);
     }
+  }
+
+  public async addLabel(id: string, addLabelDto: AddLabelDto) {
+    await this.cardRepository
+      .createQueryBuilder()
+      .relation('labels')
+      .of(id)
+      .add(addLabelDto.labelId);
+
+    return { id, labelId: addLabelDto.labelId };
+  }
+
+  public async dropLabel(id: string, labelId: string) {
+    await this.cardRepository
+      .createQueryBuilder()
+      .relation('labels')
+      .of(id)
+      .remove(labelId);
+
+    return { id, labelId };
   }
 }
