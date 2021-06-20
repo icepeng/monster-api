@@ -5,6 +5,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { EditCommentDto } from './dto/edit-comment.dto';
 import { EditDescriptionDto } from './dto/edit-description.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
+import { MoveCardDto } from './dto/move-card.dto';
 import { SetDueCompleteDto } from './dto/set-due.dto';
 
 @Controller('cards')
@@ -16,6 +17,13 @@ export class CardController {
     const card = await this.cardService.create(createCardDto);
 
     return { card };
+  }
+
+  @Post('/move')
+  public async move(@Body() moveCardDto: MoveCardDto) {
+    const cards = await this.cardService.moveCard(moveCardDto);
+
+    return { cards };
   }
 
   @Put('/:id/title')
