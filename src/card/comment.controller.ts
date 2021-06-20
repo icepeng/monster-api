@@ -11,9 +11,9 @@ export class CommentController {
   public async createComment(
     @Body() createCommentDto: CreateCommentDto,
   ) {
-    const card = await this.commentService.createComment(createCommentDto);
+    const comment = await this.commentService.createComment(createCommentDto);
 
-    return { card };
+    return { comment };
   }
 
   @Put(':id')
@@ -26,7 +26,7 @@ export class CommentController {
     return { comment };
   }
 
-  @Delete()
+  @Delete(':id')
   public async removeComment(@Param('id', ParseIntPipe) id: number) {
     await this.commentService.removeComment(id);
 
