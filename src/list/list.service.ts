@@ -1,12 +1,12 @@
+import { moveItemIndex } from '@icepeng/monster-lib';
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
 import { Card } from '../card/card.entity';
-import { List } from './list.entity';
 import { CreateListDto } from './dto/create-list.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
 import { MoveListDto } from './dto/move-list.dto';
-import { moveItemIndex } from '@icepeng/monster-lib';
+import { List } from './list.entity';
 
 @Injectable()
 export class ListService {
@@ -38,11 +38,8 @@ export class ListService {
   }
 
   public async moveList(moveListDto: MoveListDto) {
-    const list = await this.listRepository.findOne({
-      index: moveListDto.currentIndex,
-    });
     let lists = await this.listRepository.find({
-      boardId: list.boardId,
+      boardId: moveListDto.boardId,
     });
 
     lists = moveItemIndex(
