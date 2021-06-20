@@ -1,0 +1,48 @@
+POST http://localhost:3000/boards
+Content-Type: application/json
+
+{
+    "title": "Trello Resources"
+}
+
+###
+GET http://localhost:3000/boards
+
+###
+
+GET http://localhost:3000/boards/b8eaf477-6a98-4805-9be7-606f3c088b9b
+
+###
+
+POST http://localhost:3000/lists
+Content-Type: application/json
+
+{
+    "boardId": "b8eaf477-6a98-4805-9be7-606f3c088b9b",
+    "title": "temp",
+    "index": 5
+}
+### 
+
+POST http://localhost:3000/lists/move
+Content-Type: application/json
+
+{
+    "previousIndex": 1,
+    "currentIndex": 2
+}
+### 
+
+DELETE  http://localhost:3000/lists/a80c5fe4-5c00-431f-ac28-a560d8c4362c
+
+###
+POST  http://localhost:3000/cards/
+Content-Type: application/json
+
+{
+    "listId": "a80c5fe4-5c00-431f-ac28-a560d8c4362c",
+    "title": "ssb",
+    "index": 0
+}
+
+###

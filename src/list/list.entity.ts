@@ -22,7 +22,7 @@ export class List {
     () => Board,
     board => board.lists,
   )
-  @JoinColumn({ name: 'listId' })
+  @JoinColumn({ name: 'boardId' })
   board: Board;
 
   @OneToMany(
