@@ -9,7 +9,7 @@ import { List } from '../list/list.entity';
 
 @Entity()
 export class Board {
-  @PrimaryGeneratedColumn('uuid') id: string;
+  @PrimaryGeneratedColumn('increment') id: number;
 
   @CreateDateColumn() createTime: string;
 

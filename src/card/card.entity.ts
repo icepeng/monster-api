@@ -15,11 +15,11 @@ import { Label } from './label.entity';
 
 @Entity()
 export class Card {
-  @PrimaryGeneratedColumn('uuid') id: string;
+  @PrimaryGeneratedColumn('increment') id: number;
 
   @CreateDateColumn() createTime: string;
 
-  @Column() listId: string;
+  @Column() listId: number;
 
   @ManyToOne(
     () => List,

@@ -1,7 +1,7 @@
-import { IsString } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 
 export class CreateCommentDto {
-  @IsString() cardId: string;
+  @IsInt() cardId: number;
 
   @IsString() content: string;
 }

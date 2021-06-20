@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CardService } from './card.service';
 import { AddLabelDto } from './dto/add-label';
 import { CreateCardDto } from './dto/create-card.dto';
@@ -27,7 +27,7 @@ export class CardController {
 
   @Put('/:id/title')
   public async editTitle(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() editTitleDto: EditTitleDto,
   ) {
     const card = await this.cardService.editTitle(id, editTitleDto);
@@ -37,7 +37,7 @@ export class CardController {
 
   @Put('/:id/description')
   public async editDescription(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() editDescriptionDto: EditDescriptionDto,
   ) {
     const card = await this.cardService.editDescription(id, editDescriptionDto);
@@ -47,7 +47,7 @@ export class CardController {
 
   @Put('/:id/dueComplete')
   public async setDueComplete(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() setDueCompleteDto: SetDueCompleteDto,
   ) {
     const card = await this.cardService.setDueComplete(id, setDueCompleteDto);
@@ -56,7 +56,7 @@ export class CardController {
   }
 
   @Delete('/:id')
-  public async remove(@Param('id') id: string) {
+  public async remove(@Param('id', ParseIntPipe) id: number) {
     await this.cardService.remove(id);
 
     return { id };
@@ -64,7 +64,7 @@ export class CardController {
 
   @Post('/:id/labels')
   public async addLabel(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() addLabelDto: AddLabelDto,
   ) {
     const result = await this.cardService.addLabel(id, addLabelDto);
@@ -74,8 +74,8 @@ export class CardController {
 
   @Delete('/:id/labels/:labelId')
   public async dropLabel(
-    @Param('id') id: string,
-    @Param('labelId') labelId: string,
+    @Param('id', ParseIntPipe) id: number,
+    @Param('labelId', ParseIntPipe) labelId: number,
   ) {
     const result = await this.cardService.dropLabel(id, labelId);
 

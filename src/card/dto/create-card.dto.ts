@@ -1,7 +1,7 @@
 import { IsInt, IsString } from 'class-validator';
 
 export class CreateCardDto {
-  @IsString() listId: string;
+  @IsInt() listId: number;
 
   @IsString() title: string;
 

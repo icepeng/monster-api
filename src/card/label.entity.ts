@@ -4,19 +4,17 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Card } from './card.entity';
 
 @Entity()
 export class Label {
-  @PrimaryGeneratedColumn('uuid') id: string;
+  @PrimaryGeneratedColumn('increment') id: number;
 
   @CreateDateColumn() createTime: string;
 
-  @Column() listId: string;
+  @Column() listId: number;
 
   @ManyToOne(
     () => List,

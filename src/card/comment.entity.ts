@@ -10,11 +10,11 @@ import { Card } from './card.entity';
 
 @Entity()
 export class Comment {
-  @PrimaryGeneratedColumn('uuid') id: string;
+  @PrimaryGeneratedColumn('increment') id: number;
 
   @CreateDateColumn() createTime: string;
 
-  @Column() cardId: string;
+  @Column() cardId: number;
 
   @ManyToOne(
     () => Card,

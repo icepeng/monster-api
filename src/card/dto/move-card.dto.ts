@@ -1,9 +1,9 @@
-import { IsInt, IsString } from 'class-validator';
+import { IsInt } from 'class-validator';
 
 export class MoveCardDto {
-  @IsString() previousListId: string;
+  @IsInt() previousListId: number;
 
-  @IsString() currentListId: string;
+  @IsInt() currentListId: number;
 
   @IsInt() previousIndex: number;
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Board } from './board.entity';
@@ -23,7 +23,7 @@ export class BoardService {
     return this.boardRepository.find();
   }
 
-  async findOne(id: string) {
+  async findOne(id: number) {
     const data = await this.boardRepository
       .createQueryBuilder('board')
       .leftJoinAndSelect('board.lists', 'list')
@@ -32,6 +32,10 @@ export class BoardService {
       .leftJoinAndSelect('card.labels', 'label')
       .where('board.id = :id', { id })
       .getOne();
+
+    if (!data) {
+      throw new NotFoundException();
+    }
 
     const board = {
       id: data.id,
@@ -47,7 +51,7 @@ export class BoardService {
 
     const cardData = data.lists
       .map(x => x.cards)
-      .reduce((arr, x) => [...arr, ...x]);
+      .reduce((arr, x) => [...arr, ...x], []);
 
     const cards = cardData.map(x => ({
       id: x.id,
@@ -61,15 +65,15 @@ export class BoardService {
 
     const comments = cardData
       .map(x => x.comments)
-      .reduce((arr, x) => [...arr, ...x]);
+      .reduce((arr, x) => [...arr, ...x], []);
 
     const labels = cardData
       .map(x => x.labels)
-      .reduce((arr, x) => [...arr, ...x]);
+      .reduce((arr, x) => [...arr, ...x], []);
 
     const cardLabels = cardData
       .map(x => x.labels.map(l => ({ cardId: x.id, labelId: l.id })))
-      .reduce((arr, x) => [...arr, ...x]);
+      .reduce((arr, x) => [...arr, ...x], []);
 
     return {
       board,
@@ -81,7 +85,7 @@ export class BoardService {
     };
   }
 
-  public async remove(id: string) {
+  public async remove(id: number) {
     await this.boardRepository.delete(id);
   }
 }

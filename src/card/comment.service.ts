@@ -21,7 +21,7 @@ export class CommentService {
     return comment;
   }
 
-  public async editComment(id: string, editCommentDto: EditCommentDto) {
+  public async editComment(id: number, editCommentDto: EditCommentDto) {
     const comment = await this.commentRepository.findOne(id);
     comment.content = editCommentDto.content;
     await this.commentRepository.save(comment);
@@ -29,7 +29,7 @@ export class CommentService {
     return comment;
   }
 
-  public async removeComment(id: string) {
+  public async removeComment(id: number) {
     await this.commentRepository.delete(id);
   }
 }

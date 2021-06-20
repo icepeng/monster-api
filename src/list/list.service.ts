@@ -29,7 +29,7 @@ export class ListService {
     return list;
   }
 
-  public async editTitle(id: string, editTitleDto: EditTitleDto) {
+  public async editTitle(id: number, editTitleDto: EditTitleDto) {
     const list = await this.listRepository.findOne(id);
     list.title = editTitleDto.title;
     await this.listRepository.save(list);
@@ -56,7 +56,7 @@ export class ListService {
     return lists;
   }
 
-  public async remove(id: string) {
+  public async remove(id: number) {
     const cardsInList = await this.cardRepository.find({ listId: id });
     const cardIds = cardsInList.map(card => card.id);
     const list = await this.listRepository.findOne(id);
