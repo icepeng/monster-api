@@ -1,13 +1,33 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 
 import { BoardService } from './board.service';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 @Controller('boards')
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
+  @Post()
+  public async create(@Body() createBoardDto: CreateBoardDto) {
+    const board = await this.boardService.create(createBoardDto);
+
+    return { board };
+  }
+
+  @Get()
+  public async getAll() {
+    return this.boardService.findAll();
+  }
+
   @Get('/:id')
   public async getOne(@Param('id') id: string) {
     return this.boardService.findOne(id);
+  }
+
+  @Delete('/:id')
+  public async remove(@Param('id') id: string) {
+    const cardIds = await this.boardService.remove(id);
+
+    return { id, cardIds };
   }
 }
