@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CardService } from './card.service';
-import { AddLabelDto } from './dto/add-label';
+import { AddLabelDto } from './dto/add-label.dto';
 import { CreateCardDto } from './dto/create-card.dto';
 import { EditDescriptionDto } from './dto/edit-description.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
@@ -52,6 +52,8 @@ export class CardController {
     @Body() setDueDto: SetDueDto,
   ) {
     const card = await this.cardService.setDue(id, setDueDto);
+
+    return { card };
   }
 
   @Put('/:id/dueComplete')
