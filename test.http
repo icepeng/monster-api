@@ -12,6 +12,14 @@ GET http://localhost:3000/boards
 ### get board
 GET http://localhost:3000/boards/1
 
+### add label to card
+POST http://localhost:3000/cards/14/labels
+Content-Type: application/json
+
+{
+    "labelId": 6
+}
+
 ### set due
 POST http://localhost:3000/cards/35/due
 Content-Type: application/json
@@ -81,3 +89,16 @@ Content-Type: application/json
 {
     "content": "Goodbye, World!"
 }
+
+### add label
+POST http://localhost:3000/labels
+Content-Type: application/json
+
+{
+    "boardId": 1,
+    "title": "Refactor",
+    "color": "#FF6A00"
+}
+
+### delete label
+DELETE http://localhost:3000/labels/4

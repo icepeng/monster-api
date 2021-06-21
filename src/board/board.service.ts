@@ -27,9 +27,10 @@ export class BoardService {
     const data = await this.boardRepository
       .createQueryBuilder('board')
       .leftJoinAndSelect('board.lists', 'list')
+      .leftJoinAndSelect('board.labels', 'label')
       .leftJoinAndSelect('list.cards', 'card')
       .leftJoinAndSelect('card.comments', 'comment')
-      .leftJoinAndSelect('card.labels', 'label')
+      .leftJoinAndSelect('card.labels', 'cardLabel')
       .where('board.id = :id', { id })
       .getOne();
 
@@ -67,12 +68,10 @@ export class BoardService {
       .map(x => x.comments)
       .reduce((arr, x) => [...arr, ...x], []);
 
-    const labels = cardData
-      .map(x => x.labels)
-      .reduce((arr, x) => [...arr, ...x], []);
+    const labels = data.labels;
 
     const cardLabels = cardData
-      .map(x => x.labels.map(l => ({ cardId: x.id, labelId: l.id })))
+      .map(x => x.labels.map(l => ({ id: `${x.id}-${l.id}`, cardId: x.id, labelId: l.id })))
       .reduce((arr, x) => [...arr, ...x], []);
 
     return {
