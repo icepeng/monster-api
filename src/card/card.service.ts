@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Card } from './card.entity';
-import { AddLabelDto } from './dto/add-label';
+import { AddLabelDto } from './dto/add-label.dto';
 import { CreateCardDto } from './dto/create-card.dto';
 import { EditDescriptionDto } from './dto/edit-description.dto';
 import { EditTitleDto } from './dto/edit-title.dto';
